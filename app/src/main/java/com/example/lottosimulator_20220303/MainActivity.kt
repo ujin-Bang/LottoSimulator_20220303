@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
     var rankCount4 = 0
     var rankCount5 = 0
     var rankCountFail = 0
+
+//    현재 자동 구매가 진행중인지 구별하는 변수
+    var isAutoNow = false
     
 //    Handler로 쓰레드에 할일 할당. (postDelayde - 일정 시간 지난 뒤에 할 일 할당)
     lateinit var mHandler: Handler
@@ -73,19 +76,33 @@ class MainActivity : AppCompatActivity() {
         setValues()
     }
 
-   private fun setupEvents(){
+   private fun setupEvents() {
 
        btnAutoBuy.setOnClickListener {
 
 //           처음 눌리면 > 반복 구매 시작 > 1천만원 사용할 때까지 반복
 //          1회 로또 구매 명령 > 완료되면 다시 1회 로또 구매 > 연속 클릭을 자동으로 하는 느낌으로
-           
+
+           if (!isAutoNow) {
+
+
 //           핸들러에게 할 일로 처음 등록(할일을 시작해라)
-           mHandler.post(buyLottoRunnable)
+               mHandler.post(buyLottoRunnable)
+           }
+//           자동이 돌고 있다는 표식
+           isAutoNow = true
+           btnAutoBuy.text = "자동구매 중단하기"
 
 //           반복 구매중에 눌리면 > 반복 종료
+       else {
+//           핸들러에게 등록된 다음 할일 (구매 제거)
+           mHandler.removeCallbacks(buyLottoRunnable)
+
+           isAutoNow = false
+           btnAutoBuy.text = " 자동구매 시작하기"
        }
 
+       }
        btnBuyLotto.setOnClickListener {
 
            buyLotto()
