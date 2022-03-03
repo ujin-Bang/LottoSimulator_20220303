@@ -9,6 +9,7 @@ class MainActivity : AppCompatActivity() {
 
 //    컴퓨터가 뽑은 당첨번호 6개를 저장할 ArrayLIst
     val mWinNumberList = ArrayList<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,13 +43,9 @@ class MainActivity : AppCompatActivity() {
 
 //                1~45의 랜덤 숫자
 //                  Math.random()은 0~1 =>1 ~ 45.xxx로 가공=> Int로 캐스팅
-
                 val randomNum = (Math.random() * 45 + 1).toInt()
-
 //                중복 검사 통과시 while문 깨고 나옴.
-
                 if(!mWinNumberList.contains(randomNum)) {
-
 //                    당첨번호로 뽑은 랜덤 숫자 등록
                     mWinNumberList.add(randomNum)
                     break
@@ -57,7 +54,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        만들어진 당첨 번호 6개를 -> 텍스트뷰에 표현
+//        만들어진 당첨 번호 6개를 ->작은 수 ~ 큰 수로 정리해서 -> 텍스트뷰에 표현
+
+        mWinNumberList.sort() //자바로 직접 짜던 로직을 > 객체지향의 특성, 만들어져 있는 기능 활용으로 대체
 
         Log.d("당첨번호 목록",mWinNumberList.toString())
         for(winNum in mWinNumberList) {
