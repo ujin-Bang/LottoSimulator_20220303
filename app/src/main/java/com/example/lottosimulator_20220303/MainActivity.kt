@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
 
 //    컴퓨터가 뽑은 당첨번호 6개를 저장할 ArrayLIst
     val mWinNumberList = ArrayList<Int>()
+    var mBonusNum = 0 //보너스 번호는 매 판마다 새로뽑아야 함. 변경소지가 있어서 var로 함. 화면이 어디인지는 줄 필요가 없기 때문에 바로 대입하는 var함
 
 //    당첨번호를 보여줄 6개의 텍스트뷰를 담아둘 ArrayList
     val mWinNumTextViewList = ArrayList<TextView>()
@@ -73,9 +74,22 @@ class MainActivity : AppCompatActivity() {
             mWinNumTextViewList[index].text = winNum.toString()
 
         }
-//        보너스 번호 생성
+//        보너스 번호 생성 -> 1~45 중 하나, 당첨 번호와 겹치지 않게
+
+        while (true) {
+            val randomNum = (Math.random() *45 + 1).toInt()
+
+            if(!mWinNumberList.contains(randomNum)) {
+//                겹치지 않는 숫자 뽑아냄
+
+                mBonusNum = randomNum
+                break
+            }
+        }
 
 //        텍스트뷰에 배치
+
+        txtBonusNum.text = mBonusNum.toString()
 
     }
 
