@@ -8,6 +8,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+//    내 번호 6개
+//    코틀린은 단순 배열 초기화 int[] arr ={ }; 문법은 지원하지 않는다.
+    
+//    숫자 목록을 파라미터로 넣으면 >Array로 만들어 주는 함수 실행
+    val mMyNumbers = arrayOf(13, 17, 25, 43, 9, 19)
+
 //    컴퓨터가 뽑은 당첨번호 6개를 저장할 ArrayLIst
     val mWinNumberList = ArrayList<Int>()
     var mBonusNum = 0 //보너스 번호는 매 판마다 새로뽑아야 함. 변경소지가 있어서 var로 함. 화면이 어디인지는 줄 필요가 없기 때문에 바로 대입하는 var함
@@ -47,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             while(true) {
 
 //                1~45의 랜덤 숫자
-//                  Math.random()은 0~1 =>1 ~ 45.xxx로 가공=> Int로 캐스팅
+//                  Math.random()은 0.0~0.9999 =>1 ~ 45.xxx로 가공=> Int로 캐스팅
                 val randomNum = (Math.random() * 45 + 1).toInt()
 //                중복 검사 통과시 while문 깨고 나옴.
                 if(!mWinNumberList.contains(randomNum)) {
@@ -91,6 +97,14 @@ class MainActivity : AppCompatActivity() {
 
         txtBonusNum.text = mBonusNum.toString()
 
+//        내 숫자 6개와 비교, 등수 판정
+        checkLottoRank()
+    }
+
+    private fun checkLottoRank(){
+
+//        내 번호 목록 / 당첨 번호 목록중, 같은 숫자가 몇개?
+        var correctCount = 0
     }
 
     private fun setValues(){
